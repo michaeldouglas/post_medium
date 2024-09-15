@@ -1,0 +1,18 @@
+# Arquivos e diretórios padrão do Cargo
+/target/
+Cargo.lock
+
+# Arquivos de configuração do IDE
+/.idea/
+/.vscode/
+
+# Arquivos temporários e de compilação
+*.rs.bk
+*.rs~ 
+*.swp
+
+# Arquivos gerados pelo cargo-generate
+cargo-generate/
+
+# Outras configurações
+*.log
