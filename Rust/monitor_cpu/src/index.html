@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri App</title>
+    <script type="module" src="/main.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Bem vindo ao CPU Gargalos</h1>
+
+      <div class="row">
+        <a href="https://medium.com/@mdbaraujo" target="_blank">
+          <img src="/assets/logo.png" class="logo tauri" alt="Tauri logo" />
+        </a>
+      </div>
+
+      <p>Informe o nome do arquivo</p>
+
+      <form class="row" id="file-form">
+        <input
+          required
+          id="file-input"
+          placeholder="Por exemplo: md_cpu"
+          value="md_cpu"
+        />
+        <button type="submit">Salvar</button>
+        <button id="stop-btn" class="spacing">Parar Monitoramento</button>
+        <button id="file-btn" class="spacing">Obter caminho</button>
+      </form>
+      <p id="file-msg"></p>
+    </div>
+  </body>
+</html>
