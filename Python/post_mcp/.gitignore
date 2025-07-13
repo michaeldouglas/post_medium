@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+.uv/
+.venv/
+env/
+venv/
+.cache/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribuição e build
+build/
+dist/
+*.egg-info/
+
+# Editor e IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+
+# Arquivos de testes
+coverage.*
+htmlcov/
+.tox/
+.pytest_cache/
+
+# Outros (ajuste se necessário)
+*.db
+*.sqlite3
+*.env
+.env.*

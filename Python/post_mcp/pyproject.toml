@@ -1,0 +1,21 @@
+[project]
+name = "post-mcp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.116.1",
+    "fastmcp>=2.10.4",
+    "langchain>=0.3.26",
+    "langchain-community>=0.3.27",
+    "langchain-mcp-adapters>=0.1.9",
+    "langchain-openai>=0.3.27",
+    "langgraph>=0.5.2",
+    "mcp>=1.11.0",
+    "openai>=1.95.1",
+    "pydantic>=2.11.7",
+    "python-dotenv>=1.1.1",
+    "requests>=2.32.4",
+    "uvicorn>=0.35.0",
+]
