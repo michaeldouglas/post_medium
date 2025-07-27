@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+redis
+langchain
+langchain_openai
+langgraph
+langgraph-supervisor
+langgraph-checkpoint-redis
+langchain-community
+httpx
+python-dotenv

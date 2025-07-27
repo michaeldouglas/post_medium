@@ -1,0 +1,47 @@
+services:
+  redis:
+    image: redis/redis-stack-server:latest
+    container_name: redis_agents
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  supervisor:
+    build: ./supervisor
+    container_name: supervisor_agents
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./supervisor:/app
+    depends_on:
+      - redis
+      - card_agent
+      - balance_agent
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+  card_agent:
+    container_name: card_agent
+    build:
+      context: ./agents/card_agent
+    volumes:
+      - ./agents/card_agent:/app
+    ports:
+      - "8081:8000"
+    depends_on:
+      - redis
+
+  balance_agent:
+    container_name: balance_agent
+    build:
+      context: ./agents/balance_agent
+    volumes:
+      - ./agents/balance_agent:/app
+    ports:
+      - "8082:8000"
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:
