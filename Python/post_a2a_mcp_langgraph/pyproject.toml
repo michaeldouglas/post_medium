@@ -1,0 +1,13 @@
+[project]
+name = "post-a2a-mcp-langgraph"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=2.11.2",
+    "httpx>=0.28.1",
+    "ipython>=9.4.0",
+    "langchain>=0.3.27",
+    "langgraph>=0.6.4",
+]
