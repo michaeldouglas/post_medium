@@ -1,0 +1,3 @@
+{"role": "user", "content": "Gostaria de fazer uma conta simples de somar 5 e 5"}
+{"role": "user", "content": "Quero subtrair 10 e 5"}
+{"role": "user", "content": "Multiplique 2 por 2, por favor"}
