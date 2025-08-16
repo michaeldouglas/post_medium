@@ -1,3 +1,24 @@
 {"role": "user", "content": "Gostaria de fazer uma conta simples de somar 5 e 5"}
 {"role": "user", "content": "Quero subtrair 10 e 5"}
 {"role": "user", "content": "Multiplique 2 por 2, por favor"}
+
+some 5 e 5
+por favor, subtraia 10 menos 3
+multiplicar 4 por 6
+quanto é 2 + 2?
+5 vezes 7
+faça a soma de 8 e 12
+preciso subtrair 20 de 50
+multiplique 3.5 e 2
+calcule 9 menos 4 para mim
+some 2.2 com 3.8
+me ajuda a multiplicar 7 por zero
+por favor faça 10 + 10
+qual é o resultado de 15 vezes 3?
+eu quero somar dois números: 4 e 5
+subtraia 100 e 30
+isso é um teste que não tem operação
+por favor me diga a raiz quadrada de 16
+qual a operação para dividir 10 por 2?
+multiplicação 6 vezes 7
+o que é 9 menos 1?

@@ -1,0 +1,15 @@
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      - 'MYSQL_DATABASE=agregador'
+      - 'MYSQL_PASSWORD=agregador_pass'
+      - 'MYSQL_ROOT_PASSWORD=agregador_root_pass'
+      - 'MYSQL_USER=agregador_user'
+    volumes:
+      - "./conf.d:/etc/mysql/confi.d:ro"
