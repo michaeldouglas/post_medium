@@ -1,0 +1,19 @@
+[package]
+name = "api_actix"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+actix-web = "4"
+serde = { version = "1", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = [
+    "fmt",
+    "json",
+    "env-filter",
+    "time",
+] }
+
+# Swagger/OpenAPI
+utoipa = { version = "4.2.3", features = ["actix_extras"] }
+utoipa-swagger-ui = { version = "5.0.0", features = ["actix-web"] }

@@ -1,0 +1,32 @@
+# Rust build
+/target/
+**/*.rs.bk
+
+# Cargo files
+/Cargo.lock
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# MacOS
+.DS_Store
+
+# Linux
+*~
+
+# Actix web temp files (if any)
+# Usually Actix não cria arquivos, mas se gerar cache ou logs locais, ignore
+/actix_tmp/
