@@ -1,0 +1,12 @@
+{
+    "editor.fontSize": 16,
+    "editor.formatOnSave": true,
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorBlinking": true,
+    "window.zoomLevel": 2,
+    "code-runner.executorMap": {
+        "python": "clear && python3 -u"
+    },
+    "code-runner.clearPreviousOutput": true
+}
