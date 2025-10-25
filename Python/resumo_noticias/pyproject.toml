@@ -1,0 +1,15 @@
+[project]
+name = "resumo-noticias"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "datasets>=4.3.0",
+    "openai>=2.6.1",
+    "python-dotenv>=1.1.1",
+    "scrapy>=2.13.3",
+    "sentencepiece>=0.2.1",
+    "torch>=2.9.0",
+    "transformers>=4.57.1",
+]
