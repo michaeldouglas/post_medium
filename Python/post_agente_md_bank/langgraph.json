@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "md_bank": "./main.py:app"
+  },
+  "env": ".env"
+}
