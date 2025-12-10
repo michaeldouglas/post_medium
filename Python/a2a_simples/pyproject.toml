@@ -1,0 +1,12 @@
+[project]
+name = "a2a-simples"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "a2a-sdk[http-server]>=0.3.20",
+    "httpx>=0.28.1",
+    "pydantic>=2.12.5",
+    "uvicorn>=0.38.0",
+]
