@@ -1,0 +1,43 @@
+name: ${PROJECT_NAME}
+
+x-agent-common: &agent-common
+  restart: unless-stopped
+  networks:
+    - a2a-net
+  environment:
+    - ENV=${ENV}
+
+services:
+  card_agent:
+    <<: *agent-common
+    container_name: ${CARD_AGENT_CONTAINER}
+    build:
+      context: ./agents/card
+    volumes:
+      - ./agents/card:/app
+    ports:
+      - "${CARD_AGENT_PORT}:${HEALTHCHECK_PORT}"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "${HEALTHCHECK_DNS}" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  balance_agent:
+    <<: *agent-common
+    container_name: ${BALANCE_AGENT_CONTAINER}
+    build:
+      context: ./agents/balance
+    volumes:
+      - ./agents/balance:/app
+    ports:
+      - "${BALANCE_AGENT_PORT}:${HEALTHCHECK_PORT}"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "${HEALTHCHECK_DNS}" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+networks:
+  a2a-net:
+    driver: bridge

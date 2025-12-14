@@ -1,0 +1,6 @@
+[project]
+name = "a2a-card-agent"
+version = "0.1.0"
+description = "Agente A2A de consulta de Cartão de Crédito"
+requires-python = ">=3.13"
+dependencies = [ "a2a-sdk[http-server]", "httpx", "pydantic", "uvicorn" ]
