@@ -130,6 +130,37 @@ GET /.well-known/agent-card.json
 
 ---
 
+## Logs
+
+Após subir o container configurar o Loki como DataSource, para isso utilize a URL:
+
+```bash
+http://loki:3100
+```
+
+Na sequência você poderá acessar: http://localhost:3000 com o usuário e senha:
+
+- admin
+- admin
+
+E então poderá ver os logs do saldo:
+
+```json
+{service="balance_agent", level="INFO"}
+| json
+| message=~"request.end"
+| line_format "{{.timestamp}} | {{.message}} | request_id={{.request_id}} duration_ms={{.duration_ms}} status={{.status_code}}"
+```
+
+Para cartões:
+
+```json
+{service="card_agent", level="INFO"}
+| json
+| message=~"request.end"
+| line_format "{{.timestamp}} | {{.message}} | request_id={{.request_id}} duration_ms={{.duration_ms}} status={{.status_code}}"
+```
+
 ## Tecnologias Utilizadas
 
 - Python 3.13
@@ -138,6 +169,8 @@ GET /.well-known/agent-card.json
 - HTTPX
 - AsyncIO
 - Docker / Docker Compose
+- Grafana
+- Loki
 
 ---
 

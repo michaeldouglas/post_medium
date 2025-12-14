@@ -3,6 +3,10 @@ from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.tasks import InMemoryTaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentSkill
 from executor import BalanceAgentExecutor
+from library.logging_middleware import A2ALoggingMiddleware
+from library.logging import setup_logging
+
+setup_logging()
 
 # -----------------------
 # Definição do skill
@@ -51,3 +55,6 @@ server = A2AStarletteApplication(
 
 # EXPOSIÇÃO DO APP PARA O UVICORN
 app = server.build()
+
+# LOGS MIDDLEWARE
+app.add_middleware(A2ALoggingMiddleware)

@@ -6,8 +6,12 @@ x-agent-common: &agent-common
     - a2a-net
   environment:
     - ENV=${ENV}
+    - SERVICE_NAME=${PROJECT_NAME}
 
 services:
+  # =====================
+  # A2A AGENTS
+  # =====================
   card_agent:
     <<: *agent-common
     container_name: ${CARD_AGENT_CONTAINER}
@@ -17,11 +21,8 @@ services:
       - ./agents/card:/app
     ports:
       - "${CARD_AGENT_PORT}:${HEALTHCHECK_PORT}"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "${HEALTHCHECK_DNS}" ]
-      interval: 10s
-      timeout: 3s
-      retries: 3
+    logging:
+      driver: "json-file"
 
   balance_agent:
     <<: *agent-common
@@ -32,11 +33,49 @@ services:
       - ./agents/balance:/app
     ports:
       - "${BALANCE_AGENT_PORT}:${HEALTHCHECK_PORT}"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "${HEALTHCHECK_DNS}" ]
-      interval: 10s
-      timeout: 3s
-      retries: 3
+    logging:
+      driver: "json-file"
+
+  # =====================
+  # LOKI
+  # =====================
+  loki:
+    image: grafana/loki:2.9.3
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - a2a-net
+
+  # =====================
+  # PROMTAIL
+  # =====================
+  promtail:
+    image: grafana/promtail:3.0.0
+    container_name: promtail
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./promtail/promtail.yaml:/etc/promtail/config.yaml
+    command: -config.file=/etc/promtail/config.yaml
+    networks:
+      - a2a-net
+    depends_on:
+      - loki
+
+  # =====================
+  # GRAFANA
+  # =====================
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - a2a-net
+    depends_on:
+      - loki
 
 networks:
   a2a-net:
