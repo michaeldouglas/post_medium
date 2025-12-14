@@ -1,0 +1,77 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: A2A Agents
+meta:
+  id: wrk_8a23d918e93648cdba3e6f3041202577
+  created: 1765731345117
+  modified: 1765731345117
+  description: ""
+collection:
+  - name: Agente de Saldo
+    meta:
+      id: fld_ebd4c7d8fc224590a8125b94c5b13a5c
+      created: 1765731345119
+      modified: 1765732360701
+      sortKey: -1765731345119
+      description: ""
+    children:
+      - url: "{{ _.card_base_url }}/.well-known/agent-card.json"
+        name: Dados do Agente
+        meta:
+          id: req_b97f364c8cd649679af78c48764a4cf1
+          created: 1765731345120
+          modified: 1765732369772
+          isPrivate: false
+          description: ""
+          sortKey: -1765731345120
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Agente de Saldo
+    meta:
+      id: fld_ee4d95f4d8864d22a077bebeaed0b61d
+      created: 1765731345123
+      modified: 1765731360453
+      sortKey: -1765731345123
+      description: ""
+    children:
+      - url: "{{ _.balance_base_url }}/.well-known/agent-card.json"
+        name: Dados do agente
+        meta:
+          id: req_f8978c446cb04bf1ac0fea617b4c0f28
+          created: 1765731345124
+          modified: 1765731732712
+          isPrivate: false
+          description: ""
+          sortKey: -1765731345124
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_4f061e28c68ce12935956890db01d5282a9f2fdb
+    created: 1765731345130
+    modified: 1765731345130
+environments:
+  name: Local
+  meta:
+    id: env_5fc52fa7825d46e9ba87d04d945d7b35
+    created: 1765731345118
+    modified: 1765731345118
+    isPrivate: false
+  data:
+    card_base_url: http://localhost:8081
+    balance_base_url: http://localhost:8082

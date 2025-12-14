@@ -2,7 +2,7 @@ from a2a.server.apps import A2AStarletteApplication
 from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.tasks import InMemoryTaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentSkill
-from executor import OiAgentExecutor
+from executor import CardAgentExecutor
 
 skill = AgentSkill(
     id="cartao_credito",
@@ -19,7 +19,7 @@ skill = AgentSkill(
 agent_card = AgentCard(
     name="Agente de Cartão de Crédito",
     description="Agente responsável por responder perguntas sobre cartão de crédito.",
-    url="http://localhost:8080/",
+    url="http://localhost:8081/",
     default_input_modes=["text"],
     default_output_modes=["text"],
     skills=[skill],
@@ -28,7 +28,7 @@ agent_card = AgentCard(
 )
 
 handler = DefaultRequestHandler(
-    agent_executor=OiAgentExecutor(),
+    agent_executor=CardAgentExecutor(),
     task_store=InMemoryTaskStore(),
 )
 

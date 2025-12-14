@@ -1,59 +1,158 @@
-# A2A - Projeto Simples de Multi Agentes
+# A2A – Projeto Simples de Multi-Agentes
 
-## Descrição
+O **A2A Simples** é um projeto educacional que demonstra, na prática, como construir e orquestrar **múltiplos agentes** utilizando o protocolo **A2A (Agent-to-Agent)**.
 
-O projeto **A2A Simples** é uma aplicação simples que demonstra a execução de agentes, envio e recebimento de mensagens, e gerenciamento de eventos. Possui um agente para dar oi e outro para dar tchau.
+O foco do projeto é mostrar:
+
+- Descoberta de agentes via _Agent Card_
+- Comunicação entre agentes
+- Orquestração paralela com tolerância a falhas
+- Uso do client oficial A2A
+- Execução local com Docker e Docker Compose
+
+> **Importante:** este projeto **não expõe uma API REST tradicional**. A comunicação entre agentes acontece exclusivamente via **A2A Client SDK**.
+
+---
+
+## Agentes Disponíveis
+
+Atualmente o projeto contém dois agentes independentes:
+
+### Card Agent
+
+Responsável por responder perguntas relacionadas a **cartão de crédito**, como:
+
+- Limite disponível
+- Valor da fatura
+- Data de vencimento
+
+### Balance Agent
+
+Responsável por responder perguntas relacionadas a **saldo e extrato**, como:
+
+- Saldo atual
+- Movimentações recentes
+
+---
 
 ## Funcionalidades
 
-- Execução de agentes de forma assíncrona.
-- Envio e recebimento de mensagens.
-- Gerenciamento de eventos via fila.
-- Estrutura modular para fácil manutenção.
+- Execução de agentes de forma **assíncrona e paralela**
+- Orquestração resiliente com:
+  - timeout progressivo
+  - retry com backoff
+  - isolamento de falhas por agente
+- Descoberta automática de agentes via `agent-card.json`
+- Estrutura modular e extensível
+- Ambiente de desenvolvimento com Docker
+
+---
 
 ## Estrutura do Projeto
 
 ```
-a2a/
-├── agent_oi/         # Agente simples para oi
-├── agent_tchau/      # Agente simples para tchau
-├── client/           # Execução da orquestração
-└── README.md         # Este arquivo
+.
+├── agents/
+│   ├── card/                # Agente de cartão de crédito
+│   │   ├── server.py
+│   │   ├── executor.py
+│   │   ├── Dockerfile
+│   │   └── pyproject.toml
+│   └── balance/             # Agente de saldo
+│       ├── server.py
+│       ├── executor.py
+│       ├── Dockerfile
+│       └── pyproject.toml
+│
+├── client/                  # Orquestrador A2A
+│   ├── test_client.py       # Execução simples
+│   └── test_client2.py      # Execução paralela com retry/backoff
+│
+├── docker-compose.yml       # Orquestração dos agentes
+├── .env                     # Variáveis de ambiente
+└── README.md                # Este arquivo
 ```
 
-## Instalação
+---
 
-1. Clone o repositório:
+## Executando com Docker
+
+### Subir os agentes
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
-cd a2a
+docker compose up -d --build
 ```
 
-2. Instale as dependências:
+### Ver status
 
 ```bash
-uv sync
+docker ps
 ```
 
-## Uso
-
-1. Forma simples:
+### Descobrir os agentes
 
 ```bash
-python .\client\test_client.py
+curl http://localhost:8081/.well-known/agent-card.json
+curl http://localhost:8082/.well-known/agent-card.json
 ```
 
-2. Segunda forma:
+---
 
-```python
-python .\client\test_client2.py
+## Executando o Client (Orquestração)
+
+### Execução simples
+
+```bash
+python ./client/test_client.py
 ```
 
-## Contribuição
+### Execução paralela com tolerância a falhas
 
-Contribuições são bem-vindas! Abra uma issue ou envie um pull request.
+```bash
+python ./client/test_client2.py
+```
+
+Esse modo executa os agentes **em paralelo**, com:
+
+- retry automático
+- backoff exponencial
+- isolamento de falhas
+
+---
+
+## Observações Importantes
+
+- O único endpoint HTTP público é:
+
+```
+GET /.well-known/agent-card.json
+```
+
+---
+
+## Tecnologias Utilizadas
+
+- Python 3.13
+- A2A Protocol
+- Starlette
+- HTTPX
+- AsyncIO
+- Docker / Docker Compose
+
+---
 
 ## Licença
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Este projeto está licenciado sob a **MIT License**.
+
+---
+
+## Próximos Passos (Ideias)
+
+- Adicionar gateway REST → A2A
+- Implementar streaming de mensagens
+- Adicionar métricas e observabilidade
+- Suporte a mais agentes
+- Deploy em Kubernetes
+
+---

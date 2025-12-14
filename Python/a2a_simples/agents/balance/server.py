@@ -2,7 +2,7 @@ from a2a.server.apps import A2AStarletteApplication
 from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.tasks import InMemoryTaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentSkill
-from executor import TchauAgentExecutor
+from executor import BalanceAgentExecutor
 
 # -----------------------
 # Definição do skill
@@ -25,7 +25,7 @@ skill = AgentSkill(
 agent_card = AgentCard(
     name="Agente de Saldo",
     description="Agente responsável por informar saldo e extrato da conta.",
-    url="http://localhost:8081/",
+    url="http://localhost:8082/",
     default_input_modes=["text"],
     default_output_modes=["text"],
     skills=[skill],
@@ -37,7 +37,7 @@ agent_card = AgentCard(
 # Request Handler
 # -----------------------
 handler = DefaultRequestHandler(
-    agent_executor=TchauAgentExecutor(),
+    agent_executor=BalanceAgentExecutor(),
     task_store=InMemoryTaskStore(),
 )
 

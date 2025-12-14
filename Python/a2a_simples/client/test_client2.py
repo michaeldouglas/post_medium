@@ -9,8 +9,8 @@ from a2a.types import AgentCard, Message, Part, Role, TextPart
 
 # AGENTES DISPONÍVEIS
 AGENTS = {
-    "oi": "http://localhost:8080",
-    "tchau": "http://localhost:8081",
+    "cartao": "http://localhost:8081",
+    "saldo": "http://localhost:8082",
 }
 
 # CONFIG AVANÇADA
@@ -81,7 +81,8 @@ async def call_agent_safe(name: str, base_url: str, text: str) -> Optional[str]:
 
         # BACKOFF EXPONENCIAL COM JITTER
         if attempt < MAX_RETRIES:
-            delay = BACKOFF_BASE * (2 ** (attempt - 1)) + random.uniform(0, 0.3)
+            delay = BACKOFF_BASE * (2 ** (attempt - 1)) + \
+                random.uniform(0, 0.3)
             print(f"[{name}] retry em {delay:.2f}s...\n")
             await asyncio.sleep(delay)
 
