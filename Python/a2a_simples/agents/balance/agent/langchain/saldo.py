@@ -1,42 +1,33 @@
+import os
+from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import HumanMessage
-from langchain.tools import tool
 from langchain.agents import create_agent
+from .tools import consultar_saldo
+import langsmith as ls
 
-CLIENTES = {
-    "joão silva": {
-        "id": 1,
-        "nome": "João Silva",
-        "saldo": 1500.75,
-    },
-    "maria oliveira": {
-        "id": 2,
-        "nome": "Maria Oliveira",
-        "saldo": 2450.00,
-    },
-    "carlos pereira": {
-        "id": 3,
-        "nome": "Carlos Pereira",
-        "saldo": 320.40,
-    },
-}
+load_dotenv()
 
+MODEL = os.getenv("MODEL", "gpt-oss")
+MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "ollama")
+TEMPERATURE = float(os.getenv("TEMPERATURE", "0"))
+PROJECT_NAME = os.getenv("LANGSMITH_PROJECT", "a2a-agents")
 
-@tool
-def consultar_saldo(nome_cliente: str) -> str:
-    """Encontra o cliente pelo nome e retorna o saldo."""
-    key = nome_cliente.lower().strip()
-    cliente = CLIENTES.get(key)
-    if not cliente:
-        return f"Cliente '{nome_cliente}' não encontrado."
-    return f"O saldo do cliente {cliente['nome']} é R$ {cliente['saldo']:.2f}"
+EVAL_MODE = os.getenv("EVAL_MODE", "false").lower() == "true"
 
+if EVAL_MODE:
+    BASE_URL = "http://localhost:11434"
+else:
+    BASE_URL = os.getenv(
+        "BASE_URL",
+        "http://host.docker.internal:11434"
+    )
 
 _llm = init_chat_model(
-    model="gpt-oss",
-    model_provider="ollama",
-    base_url="http://host.docker.internal:11434",
-    temperature=0,
+    model=MODEL,
+    model_provider=MODEL_PROVIDER,
+    base_url=BASE_URL,
+    temperature=TEMPERATURE,
 )
 
 _agent = create_agent(
@@ -46,18 +37,32 @@ _agent = create_agent(
         "Você é um agente de consulta de saldos. "
         "Quando o cliente perguntar sobre saldo, "
         "utilize a ferramenta `consultar_saldo`."
-    ),
+    )
 )
 
 
-def run_balance_agent(user_text: str) -> str:
-    """
-    Recebe o texto do usuário e devolve apenas a resposta.
-    """
-    result = _agent.invoke({
-        "messages": [
-            HumanMessage(content=user_text)
-        ]
-    })
+def run_balance_agent(user_text: str, request_id: str | None) -> str:
+    metadata = {
+        "agent_name": "balance-agent",
+        "workflow": "a2a",
+        "service": "a2a-agents",
+        "env": os.getenv("ENV", "dev"),
+        "request_id": request_id
+    }
 
-    return result["messages"][-1].content
+    with ls.tracing_context(
+        project_name=PROJECT_NAME,
+        enabled=True,
+        metadata=metadata
+    ):
+        result = _agent.invoke({
+            "messages": [
+                HumanMessage(content=user_text)
+            ]
+        })
+
+        print(f"[balance-agent][{request_id}] input={user_text}")
+        print(
+            f"[balance-agent][{request_id}] output={result['messages'][-1].content}")
+
+        return result["messages"][-1].content

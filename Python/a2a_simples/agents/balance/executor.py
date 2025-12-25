@@ -16,9 +16,10 @@ class BalanceAgentExecutor(AgentExecutor):
 
         # Obtem a mensagem
         user_text = context.get_user_input()
+        request_id = context.context_id
 
         # Executa o agente de saldo
-        response_balance_agent = run_balance_agent(user_text)
+        response_balance_agent = run_balance_agent(user_text, request_id)
 
         await event_queue.enqueue_event(
             new_agent_text_message(response_balance_agent)
