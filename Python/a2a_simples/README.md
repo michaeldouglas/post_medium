@@ -161,6 +161,20 @@ Para cartões:
 | line_format "{{.timestamp}} | {{.message}} | request_id={{.request_id}} duration_ms={{.duration_ms}} status={{.status_code}}"
 ```
 
+# Parte 2
+
+Como executar os testes e Evals.
+
+## Execução de testes
+
+python -m agents.balance.agent.langchain.tests.test_gpt_oss_com_tools
+python -m agents.balance.agent.langchain.tests.test_gpt_oss_sem_tools
+
+## Executando os evals
+
+python -m agents.balance.agent.langchain.evals.datasets.balance_agent
+python -m agents.balance.agent.langchain.evals.run_evals
+
 ## Tecnologias Utilizadas
 
 - Python 3.13

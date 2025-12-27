@@ -3,4 +3,12 @@ name = "a2a-balance-agent"
 version = "0.1.0"
 description = "Agente A2A de consulta de saldo"
 requires-python = ">=3.13"
-dependencies = [ "a2a-sdk[http-server]", "httpx", "pydantic", "uvicorn" ]
+dependencies = [
+"a2a-sdk[http-server]",
+"httpx",
+"pydantic",
+"uvicorn",
+"langchain",
+"langchain-ollama",
+"python-dotenv"
+]
